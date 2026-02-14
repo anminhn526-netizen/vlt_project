@@ -1,0 +1,1080 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap&subset=vietnamese" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .main-scene {
+            transition: filter 0.5s ease;
+        }
+
+        .main-scene.blurred {
+            filter: blur(8px);
+        }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Ground */
+        .ground {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #0d4d2d;
+            border-top: 3px solid #0a3d24;
+            z-index: 1;
+        }
+
+        /* Grass */
+        .grass-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .grass-blade {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(to top, #0d5a36, #1a8f5a);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            animation: grassSway 3s ease-in-out infinite;
+        }
+
+        .grass-tall {
+            width: 12px;
+            height: 80px;
+            background: linear-gradient(to top, #0a4d2e, #16865a);
+        }
+
+        .grass-medium {
+            width: 10px;
+            height: 60px;
+        }
+
+        .grass-short {
+            width: 8px;
+            height: 45px;
+        }
+
+        .grass-dark {
+            background: linear-gradient(to top, #083d26, #0f6b45);
+        }
+
+        .grass-light {
+            background: linear-gradient(to top, #1a8f5a, #2db370);
+        }
+
+        @keyframes grassSway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .grass-cluster {
+            position: absolute;
+            bottom: 80px;
+            width: 60px;
+        }
+
+        /* Fireworks */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: launch 1s ease-out forwards;
+        }
+
+        @keyframes launch {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-400px); opacity: 0; }
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        .firework-pink {
+            background: radial-gradient(circle, #ff69b4, #ff1493);
+            box-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+        }
+
+        .firework-light-pink {
+            background: radial-gradient(circle, #ffb3d9, #ff85b3);
+            box-shadow: 0 0 10px #ffb3d9, 0 0 20px #ff85b3;
+        }
+
+        .firework-hot-pink {
+            background: radial-gradient(circle, #ff1493, #c71585);
+            box-shadow: 0 0 10px #ff1493, 0 0 20px #c71585;
+        }
+
+        .firework-rose {
+            background: radial-gradient(circle, #ff6b9d, #ff4777);
+            box-shadow: 0 0 10px #ff6b9d, 0 0 20px #ff4777;
+        }
+
+        /* Envelope wrapper */
+        .envelope-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            z-index: 100;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffb3d9, #ffc9e3);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, #ff85b3, #ffb3d9);
+            transform-origin: top center;
+            border-radius: 10px 10px 0 0;
+            transition: transform 0.8s ease;
+            z-index: 3;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .envelope-flap.open {
+            transform: rotateX(-180deg);
+        }
+
+        /* Hearts circling around envelope */
+        .hearts-circle-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            z-index: 99;
+            pointer-events: none;
+            opacity: 1;
+            animation: heartbeatCircle 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeatCircle {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+            }
+            14% { 
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+            28% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            42% {
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+            56% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .circle-heart {
+            position: absolute;
+            font-size: 35px;
+            animation: pulseHeart 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 179, 217, 0.4);
+            user-select: none;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .circle-heart:hover {
+            transform: scale(1.3);
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.15);
+                filter: brightness(1.3);
+            }
+        }
+
+        /* Letter modal */
+        .letter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+
+        .letter-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px white;
+            animation: shootingStar 2s linear infinite;
+        }
+
+        @keyframes shootingStar {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            100% { transform: translateX(-300px) translateY(300px); opacity: 0; }
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to left, white, transparent);
+            transform: translateX(-80px);
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatHeart 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translateY(-100px) scale(1) rotate(10deg); opacity: 0.8; }
+            100% { transform: translateY(-200px) scale(0.5) rotate(20deg); opacity: 0; }
+        }
+
+        .letter-paper {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            border-radius: 10px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+
+        .letter-modal.show .letter-paper {
+            transform: scale(1);
+        }
+
+        .letter-content {
+            text-align: center;
+            color: #c7365f;
+        }
+
+        .letter-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .letter-content .heart {
+            font-size: 40px;
+            color: #ff4757;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+        }
+
+        .letter-content .message {
+            margin-top: 30px;
+            line-height: 2;
+            font-size: 18px;
+            color: #333;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        /* Spreading hearts from center */
+        .spreading-hearts-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            z-index: 97;
+            pointer-events: none;
+        }
+
+        .spreading-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spreadOut 2.5s ease-out infinite;
+        }
+
+        @keyframes spreadOut {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(var(--spread-x), var(--spread-y)) scale(0.8) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .button {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff6b9d, #c92a6d);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(201, 42, 109, 0.4);
+            transition: all 0.3s ease;
+            z-index: 101;
+            font-family: 'Georgia', serif;
+        }
+
+        .button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 7px 20px rgba(201, 42, 109, 0.6);
+        }
+
+        .button.hidden {
+            display: none;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: #ff3838;
+            transform: scale(1.1);
+        }
+
+        .letter-paper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .letter-paper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .letter-paper::-webkit-scrollbar-thumb {
+            background: #ffb3d9;
+            border-radius: 10px;
+        }
+
+        .letter-paper::-webkit-scrollbar-thumb:hover {
+            background: #ff85b3;
+        }
+
+        /* Floating love emojis in main scene */
+        .love-emoji-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 60;
+        }
+
+        .love-emoji {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0;
+            animation: floatUpEmoji 8s ease-in-out infinite;
+            user-select: none;
+        }
+
+        @keyframes floatUpEmoji {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+                transform: translateY(-50px) translateX(10px) rotate(5deg) scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateY(-400px) translateX(-20px) rotate(-10deg) scale(1.1);
+            }
+            80% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-800px) translateX(30px) rotate(15deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Valentine text */
+        .valentine-text-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 55;
+        }
+
+        .floating-text {
+            position: absolute;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b9d;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.8),
+                         0 0 20px rgba(255, 107, 157, 0.5);
+            opacity: 0;
+            animation: floatText 15s ease-in-out infinite;
+            user-select: none;
+            font-family: 'Georgia', serif;
+        }
+
+        @keyframes floatText {
+            0% {
+                transform: translateX(-100px) translateY(0) rotate(-3deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateX(calc(50vw)) translateY(20px) rotate(3deg);
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-10px) rotate(-2deg);
+                opacity: 0;
+            }
+        }
+
+        /* Particle heart effect */
+        .particle-heart-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            z-index: 98;
+            pointer-events: none;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+            }
+            25% { 
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleExplode 3s ease-out infinite;
+        }
+
+        @keyframes particleExplode {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-scene" id="mainScene">
+        <!-- Love emojis floating -->
+        <div class="love-emoji-container" id="loveEmojiContainer"></div>
+        
+        <!-- Valentine text floating -->
+        <div class="valentine-text-container" id="valentineTextContainer"></div>
+        
+        <div class="fireworks-container" id="fireworksContainer"></div>
+        <div class="stars" id="stars"></div>
+        <div class="ground"></div>
+        <div class="grass-container" id="grassContainer"></div>
+
+        <div class="envelope-wrapper">
+            <div class="hearts-circle-container" id="heartsCircle"></div>
+            <div class="spreading-hearts-container" id="spreadingHearts"></div>
+            <div class="particle-heart-container" id="particleHeart"></div>
+            <div class="envelope" id="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-flap" id="flap"></div>
+            </div>
+        </div>
+
+        <button class="button" id="openBtn">Mở thư ❤️</button>
+    </div>
+
+    <div class="letter-modal" id="letterModal">
+        <div class="shooting-star" style="top: 10%; right: 20%; animation-delay: 0s;"></div>
+        <div class="shooting-star" style="top: 30%; right: 60%; animation-delay: 0.5s;"></div>
+        <div class="shooting-star" style="top: 50%; right: 10%; animation-delay: 1s;"></div>
+        <div class="shooting-star" style="top: 20%; right: 80%; animation-delay: 1.5s;"></div>
+        <div class="shooting-star" style="top: 60%; right: 40%; animation-delay: 2s;"></div>
+        <div class="shooting-star" style="top: 15%; right: 50%; animation-delay: 2.5s;"></div>
+        <div class="shooting-star" style="top: 70%; right: 70%; animation-delay: 3s;"></div>
+        
+        <div id="heartsContainer"></div>
+        
+        <div class="letter-paper">
+            <button class="close-button" id="closeBtn">×</button>
+            <div class="letter-content">
+                <h1>Happy Valentine's Day</h1>
+                <div class="heart">❤️</div>
+                <div class="message">
+                    <span>
+Gửi người đặc biệt của tôi,
+
+Có những điều trong đời không cần lời nói,
+Nhưng hôm nay tôi muốn nói với bạn rằng...
+
+Bạn là cả là một phần rất lớn trong thanh xuân của tôi,..
+Là nụ cười khiến trái tim tôi rung động,
+Là lý do tôi mong chờ mỗi ngày mới.
+
+Dù tương lai có thế nào,
+Tôi muốn bạn biết rằng,
+Bạn luôn đặc biệt với tôi,cảm ơn vì đã là một phần thanh xuân 
+Chúc bạn có một mùa valentine tốt lành,hạnh phúc
+Cảm ơn vì đã là một phần lớn trong thanh xuân của tôi
+
+Happy Valentine's Day! 💕
+
+- Người luôn nghĩ về bạn
+                    </span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 70 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Love emojis floating up
+        const loveEmojiContainer = document.getElementById('loveEmojiContainer');
+        const loveEmojis = ['😘', '😍', '💘', '😚', '😻'];
+
+        function createLoveEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'love-emoji';
+            emoji.textContent = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.bottom = '-50px';
+            emoji.style.animationDelay = Math.random() * 2 + 's';
+            emoji.style.animationDuration = (6 + Math.random() * 4) + 's';
+            emoji.style.fontSize = (20 + Math.random() * 20) + 'px';
+            
+            loveEmojiContainer.appendChild(emoji);
+            
+            // Remove after animation
+            setTimeout(() => {
+                emoji.remove();
+            }, 10000);
+        }
+
+        // Create love emojis continuously
+        setInterval(createLoveEmoji, 800);
+        
+        // Initial emojis
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createLoveEmoji, i * 500);
+        }
+
+        // Floating Valentine text in the sky
+        const valentineTextContainer = document.getElementById('valentineTextContainer');
+        const valentineTexts = [
+            'Happy Valentine\'s Day',
+            'Happy Valentine',
+            '💕 Valentine 💕',
+            'Happy Valentine\'s Day ❤️',
+            '💖 Happy Valentine 💖',
+            'Valentine\'s Day',
+            '❤️ Valentine ❤️',
+            'Happy Valentine 💕',
+            '💘 Valentine\'s Day 💘',
+            'Happy Valentine\'s',
+            '💝 Valentine 💝',
+            'Happy Valentine\'s Day',
+            'Valentine 💖',
+            '❤️ Happy Valentine ❤️',
+            'Valentine\'s Day 💕',
+            '💗 Valentine 💗',
+            'Happy Valentine',
+            '💓 Valentine\'s Day 💓',
+            'Valentine ❤️',
+            'Happy Valentine\'s Day 💖',
+            'I Love You',
+            'I Love You ❤️',
+            '💕 I Love You 💕',
+            'I Love You',
+            '💖 I Love You',
+            'I Love You ❤️',
+            '💗 I Love You 💗',
+            'I Love You',
+            '💓 I Love You 💓',
+            'I Love You 💕'
+        ];
+
+        function createFloatingText() {
+            const text = document.createElement('div');
+            text.className = 'floating-text';
+            text.textContent = valentineTexts[Math.floor(Math.random() * valentineTexts.length)];
+            
+            // Random starting position (left or right side)
+            const startFromLeft = Math.random() > 0.3; // 70% from left, 30% from right
+            text.style.left = startFromLeft ? '-200px' : 'calc(100vw + 200px)';
+            
+            // Random vertical position in sky area
+            text.style.top = (2 + Math.random() * 45) + '%';
+            
+            // Random animation delay
+            text.style.animationDelay = Math.random() * 3 + 's';
+            
+            // Random duration for different speeds
+            text.style.animationDuration = (12 + Math.random() * 15) + 's';
+            
+            // Random font size
+            text.style.fontSize = (22 + Math.random() * 24) + 'px';
+            
+            // Random colors with pink tones
+            const colors = ['#ff6b9d', '#ff85b3', '#ff4777', '#ffb3d9', '#ff1493', '#ff69b4'];
+            text.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // If starting from right, reverse animation
+            if (!startFromLeft) {
+                text.style.animationDirection = 'reverse';
+            }
+            
+            valentineTextContainer.appendChild(text);
+            
+            // Remove after animation
+            setTimeout(() => {
+                text.remove();
+            }, 30000);
+        }
+
+        // Create floating text more frequently
+        setInterval(createFloatingText, 2000); // Every 2 seconds
+        
+        // Initial texts - more of them
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createFloatingText, i * 1000);
+        }
+
+        // Fireworks
+        const fireworksContainer = document.getElementById('fireworksContainer');
+        const fireworkColors = ['firework-pink', 'firework-light-pink', 'firework-hot-pink', 'firework-rose'];
+
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = (20 + Math.random() * 60) + '%';
+            firework.style.top = (70 + Math.random() * 20) + '%';
+            fireworksContainer.appendChild(firework);
+            
+            setTimeout(() => {
+                createExplosion(firework.offsetLeft, firework.offsetTop - 400);
+                firework.remove();
+            }, 1000);
+        }
+
+        function createExplosion(x, y) {
+            const particleCount = 30 + Math.floor(Math.random() * 20);
+            const colorClass = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle ' + colorClass;
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const velocity = 50 + Math.random() * 100;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.setProperty('--tx', Math.cos(angle) * velocity + 'px');
+                particle.style.setProperty('--ty', Math.sin(angle) * velocity + 'px');
+                particle.style.animationDelay = Math.random() * 0.1 + 's';
+                fireworksContainer.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        setInterval(createFirework, 2000);
+        setTimeout(createFirework, 5000);
+
+        // Create more initial fireworks
+        setTimeout(createFirework, 6000);
+        setTimeout(createFirework, 7500);
+        setTimeout(createFirework, 8500);
+        setTimeout(createFirework, 9500);
+        
+        // Add second interval for even more fireworks
+        setInterval(createFirework, 3500);
+
+        // Grass
+        const grassContainer = document.getElementById('grassContainer');
+        for (let layer = 0; layer < 3; layer++) {
+            for (let i = 0; i < 40; i++) {
+                const cluster = document.createElement('div');
+                cluster.className = 'grass-cluster';
+                cluster.style.left = (i * 2.5) + '%';
+                cluster.style.bottom = (80 - layer * 20) + 'px';
+                cluster.style.zIndex = 3 - layer;
+                
+                for (let j = 0; j < 8 + Math.floor(Math.random() * 5); j++) {
+                    const blade = document.createElement('div');
+                    blade.className = 'grass-blade';
+                    const type = Math.random();
+                    if (type > 0.7) blade.classList.add('grass-tall');
+                    else if (type > 0.4) blade.classList.add('grass-medium');
+                    else blade.classList.add('grass-short');
+                    if (layer === 0) blade.classList.add('grass-dark');
+                    else if (layer === 2) blade.classList.add('grass-light');
+                    blade.style.left = (j * 6) + 'px';
+                    blade.style.height = (40 + Math.random() * 50) + 'px';
+                    blade.style.width = (8 + Math.random() * 6) + 'px';
+                    blade.style.animationDelay = Math.random() * 3 + 's';
+                    blade.style.animationDuration = (2.5 + Math.random() * 1.5) + 's';
+                    blade.style.opacity = 0.7 + Math.random() * 0.3;
+                    cluster.appendChild(blade);
+                }
+                grassContainer.appendChild(cluster);
+            }
+        }
+
+        // Hearts forming heart shape around envelope
+        const heartsCircle = document.getElementById('heartsCircle');
+        
+        // Heart shape coordinates (mathematical heart curve)
+        const heartPoints = [];
+        const numPoints = 100; // Increased from 50 to 100 for more hearts
+        
+        for (let i = 0; i < numPoints; i++) {
+            const t = (i / numPoints) * Math.PI * 2;
+            // Parametric heart curve equations
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            
+            heartPoints.push({
+                x: x * 18 + 370,
+                y: y * 18 + 380
+            });
+        }
+
+        heartPoints.forEach((point, i) => {
+            const heart = document.createElement('div');
+            heart.className = 'circle-heart';
+            heart.textContent = '❤️';
+            heart.style.left = point.x + 'px';
+            heart.style.top = point.y + 'px';
+            heart.style.animationDelay = (i * 0.02) + 's'; // Adjusted delay for 100 hearts
+            
+            heartsCircle.appendChild(heart);
+        });
+
+        // Particle heart effect
+        const particleHeart = document.getElementById('particleHeart');
+        
+        function createParticleHeart() {
+            // Clear old particles
+            particleHeart.innerHTML = '';
+            
+            // Create particles along heart shape - many more particles
+            const particlePoints = [];
+            const numParticles = 150; // Increased from 80
+            
+            for (let i = 0; i < numParticles; i++) {
+                const t = (i / numParticles) * Math.PI * 2;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                
+                particlePoints.push({
+                    x: x * 8 + 200,
+                    y: y * 8 + 180
+                });
+            }
+            
+            particlePoints.forEach((point, i) => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = point.x + 'px';
+                particle.style.top = point.y + 'px';
+                
+                // Random particle size (varied like in image)
+                const size = 8 + Math.random() * 18;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random explosion direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 20 + Math.random() * 40;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                particle.style.animationDelay = (i * 0.01) + 's';
+                
+                // Light pink colors like in image
+                const colors = ['#ffb3d9', '#ffc9e3', '#ffd1e3', '#ffaed6', '#f8b8d8', '#ffcce5'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.boxShadow = `0 0 ${size}px ${colors[Math.floor(Math.random() * colors.length)]}`;
+                
+                particleHeart.appendChild(particle);
+            });
+        }
+
+        // Create particle effect every 3 seconds (matching animation)
+        createParticleHeart();
+        setInterval(createParticleHeart, 3000);
+
+        // Spreading hearts from center to border
+        const spreadingHearts = document.getElementById('spreadingHearts');
+        
+        function createSpreadingHearts() {
+            // Create many more hearts that spread from center to heart border
+            const numSpreadHearts = 40; // Increased from 15 to 40
+            
+            for (let i = 0; i < numSpreadHearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'spreading-heart';
+                
+                // Random angle for spreading
+                const angle = (Math.random() * Math.PI * 2);
+                
+                // Calculate end position on heart curve
+                const t = angle;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                
+                // Scale to match container with some randomness
+                const randomScale = 0.7 + Math.random() * 0.4;
+                const endX = x * 8 * randomScale;
+                const endY = y * 8 * randomScale;
+                
+                heart.style.setProperty('--spread-x', `calc(-50% + ${endX}px)`);
+                heart.style.setProperty('--spread-y', `calc(-50% + ${endY}px)`);
+                heart.style.animationDelay = (i * 0.06) + 's';
+                heart.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+                
+                // Random heart types and sizes
+                const heartTypes = ['💕', '💖', '💗', '💓', '💝', '❤️'];
+                heart.textContent = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                heart.style.fontSize = (12 + Math.random() * 12) + 'px';
+                
+                spreadingHearts.appendChild(heart);
+            }
+        }
+
+        // Create spreading hearts more frequently
+        createSpreadingHearts();
+        setInterval(() => {
+            spreadingHearts.innerHTML = '';
+            createSpreadingHearts();
+        }, 3000);
+
+        // Letter modal
+        const openBtn = document.getElementById('openBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const flap = document.getElementById('flap');
+        const letterModal = document.getElementById('letterModal');
+        const mainScene = document.getElementById('mainScene');
+        const heartsContainer = document.getElementById('heartsContainer');
+        let heartsInterval;
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '❤️';
+            heart.style.left = (20 + Math.random() * 60) + '%';
+            heart.style.bottom = '10%';
+            heart.style.animationDelay = Math.random() + 's';
+            heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        openBtn.addEventListener('click', () => {
+            flap.classList.add('open');
+            setTimeout(() => {
+                mainScene.classList.add('blurred');
+                letterModal.classList.add('show');
+                openBtn.classList.add('hidden');
+                heartsInterval = setInterval(createFloatingHeart, 500);
+            }, 800);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            letterModal.classList.remove('show');
+            mainScene.classList.remove('blurred');
+            clearInterval(heartsInterval);
+            heartsContainer.innerHTML = '';
+            setTimeout(() => {
+                flap.classList.remove('open');
+                openBtn.classList.remove('hidden');
+            }, 500);
+        });
+
+        letterModal.addEventListener('click', (e) => {
+            if (e.target === letterModal) closeBtn.click();
+        });
+    </script>
+</body>
+</html>
